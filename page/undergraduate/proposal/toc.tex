@@ -1,5 +1,13 @@
+% ------------------ 导言区 ------------------
 
-\cleardoublepage{}
-\tableofcontents
+% 目录最外层一级加粗（chapter 级别）
+\renewcommand{\cftchapfont}{\bfseries}       % 章节标题加粗
+\renewcommand{\cftchappagefont}{\bfseries}   % 页码加粗
+% --------------------------------------------
+% 显示到 subsubsection
+\setcounter{tocdepth}{3}
+% ------------------ 正文 ------------------
+\cleardoublepage{}    % 换到右页开始
+\tableofcontents     % 生成目录
 
-\clearpage
+\clearpage            % 目录结束，换页

@@ -23,7 +23,7 @@
     StudentID       = 3220105000,
     AdvisorName     = 金小刚,
     Grade           = 2026,            % only the year, no '级'
-    Major           = 专业,
+    Major           = 工业设计,
     Department      = 计算机科学与技术学院,
     SubmitDate      = 2026年3月26日,
     MajorFormat     = general,
@@ -42,8 +42,8 @@
     ListOfTables    = true,
     ListOfAlgorithms= false,
     % Title
-    Title           = 基于深度学习的三维物体材质迁移,
-    TitleEng        = {{Graduation Thesis Title}}
+    Title           = 基于深度学习的三维物体材质生成与迁移,
+    TitleEng        = {{Deep Learning Based 3D Object Material Transfer}}
 ]{zjuthesis}
 
 %% Uncomment the following lines if you need multi line titles on cover pages
@@ -55,6 +55,8 @@
 
 %% Uncomment the following lines if you need multi line department names on cover pages
 % \departmenttwolines{学院名第一行}{学院名第二行}
+
+\usepackage{tocloft}  % 控制目录样式
 
 \newcommand{\inputundergraduate}
 {
@@ -111,7 +113,7 @@
         \inputpage{proposal}{previous}
         
         \prevstyle
-        \inputpage{proposal}{toc}
+        \inputpage{proposal}{toc}  % 目录
     
         \bodystyle
         \inputbody{proposal/content}
