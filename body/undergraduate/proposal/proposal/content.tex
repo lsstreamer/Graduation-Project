@@ -171,4 +171,61 @@ SAM 3D 界面采用极简风格：
 
 \section{算法调研}
 
+\subsection{使用扩散模型进行3D纹理化}
+
+大多数现有的纹理生成方法利用来自文本到图像（Text-to-Image, T2I）扩散模型的二维先验，
+根据文本或图像生成纹理。\cite{rombach2022high}
+像 Text2Tex \cite{chen2023text2tex} 和 TEXture \cite{richardson2023texture} 这类方法通过多视角迭代对网格进行绘制，
+但往往缺乏多视角一致性。
+另一类方法采用基于优化的策略，
+利用评分蒸馏采样（Score Distillation Sampling, SDS）直接优化纹理贴图，
+例如 Fantasia3D \cite{chen2023fantasia3d}、Magic3D \cite{lin2023magic3d} 和 DreamMat \cite{zhang2024dreammat}。
+FlashTex \cite{deng2024flashtex} 通过引入光照条件扩散模型，
+在两阶段流程中提升了光照解耦能力。
+然而，基于 SDS 的方法通常依赖于单视角扩散模型，
+容易产生视角不一致问题（例如 Janus 问题），
+并且需要高成本的迭代优化，
+从而限制了其可扩展性。
+
+后续工作通过多种方式提升多视角一致性和纹理质量，
+包括对扩散模型进行微调\cite{zhao2025hunyuan3d} \cite{zeng2024paint3d}，
+引入更先进的采样策略\cite{zhang2024texpainter}，
+或设计二维扩散模型以采用 UV 精修（UV refinement）\cite{yu2024texgen}。
+TexFusion \cite{Cao_2023_ICCV} 使用一种去噪采样器，
+在每一步中在 UV 空间跨视角融合图像。
+Paint3D \cite{zeng2024paint3d} 通过 UV 修补（inpainting）模型对纹理进行细化。
+Meta 3D TextureGen \cite{bensadoun2024meta} 利用具备几何感知能力的文本到图像模型实现一致的多视角合成，
+而 Hunyuan3D 2.0 \cite{zhao2025hunyuan3d} 则提出了一种可同时生成多视角纹理的模型。
+
+尽管这些基于 UV 的方法能够利用二维扩散模型的强大先验，
+但 UV 表示本身存在拓扑歧义的问题，
+从而限制了这些方法的泛化能力。
+
+\subsection{3D原生纹理贴图}
+
+还有一类方法选择在带有真实纹理标注的三维数据上直接训练生成模型。
+例如，Texture Field \cite{oechsle2019texture}通过在三维表面上建模隐式颜色场来表示纹理，
+而 Texturify \cite{siddiqui2022texturify} 则结合面级卷积（face convolutions）与对抗式渲染损失，实现逐面纹理的预测。
+
+近年来，一些基于扩散模型的方法（如 PointUV \cite{yu2023texture}、TEXGen \cite{yu2024texgen} 和 TexOct \cite{liu2024texoct}）
+通过生成点云的颜色信息，并将其映射到 UV 纹理空间中。
+TexGaussian \cite{xiong2025texgaussian} 则提出了一种基于八叉树结构的三维高斯表示方法，
+能够根据文本与几何信息预测纹理，随后再将结果烘焙回原始网格。
+
+尽管这些直接在三维空间中建模的方案在纹理补全方面通常优于基于二维扩散的方法，
+但它们仍然受到三维数据资源有限以及泛化能力不足的制约。
+
+\subsection{基于图像的3D风格迁移}
+与二维相比，三维中的风格迁移任务要复杂得多，
+因为它不仅涉及纹理风格，还包含几何风格。
+Fan 等人 \cite{fan2022unified} 和 Liu 等人 \cite{liu2023stylerf} 提出了能够将参考风格图像的色调迁移到 NeRF 场景中的网络。
+Jain 等人 \cite{jain2024stylesplat} 则提出了一种特征匹配损失，用于调整选定对象的颜色。
+Richardson 等人 \cite{richardson2023texture} 和 Xie 等人 \cite{xie2024styletex} 利用二维生成模型为已有的三维形状生成纹理。
+
+为了在迁移过程中避免破坏场景的空间一致性，
+这些方法通常保持三维场景的几何结构不变，
+仅对其纹理进行修改。然而，与二维风格不同，
+参考图像中许多与几何相关的风格（例如像素风或网格状图案）
+仅通过改变颜色分布是无法充分表达的。
+
 
