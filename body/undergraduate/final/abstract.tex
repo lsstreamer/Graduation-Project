@@ -3,8 +3,45 @@
     \bfseries \zihao{3} 摘~要
 \end{center}
 
+尽管近期基于扩散模型的三维生成方法取得了显著进展，但现有方法在利用多视角图像作为生成条件时仍面临诸多挑战，
+包括单视图输入信息不足导致的几何歧义性、跨视图信息融合不充分以及生成结果与输入视角之间一致性较差等问题。
+为此，本文提出MVTrellis———一种单视图驱动的多视角引导三维资产生成框架。该框架首先使用现有方法， 
+将单视图图像扩展为多视角一致图像，再以多视角图像为条件，通过 LoRA 对 Trellis2 扩散网络中每个 Transformer 
+Block 的自注意力与交叉注意力层进行参数高效微调，引导模型生成几何完整、材质真实的三维资产。
+该方法仅引入少量可训练参数，在保留预训练模型原有生成能力的同时，有效提升了生成结果的视角一致性与材质保真度。
+实验结果表明，本文方法在纹理细节、跨视角一致性和连贯性等方面均有明显提高。
+
+\vspace{1em}
+
+\noindent\textbf{关键词：}纹理生成；扩散模型；低秩自适应；
+
 
 \cleardoublepage{}
 \begin{center}
     \bfseries \zihao{3} Abstract
 \end{center}
+
+Although recent advances in diffusion-based 3D generation have achieved 
+remarkable progress, existing methods still face significant challenges
+when leveraging multi-view images as generation conditions, including 
+geometric ambiguity caused by insufficient single-view information, 
+inadequate cross-view feature fusion, and poor consistency between 
+generated results and input viewpoints. To address these limitations, 
+we present MVTrellis, a single-view-driven, multi-view-guided framework 
+for 3D asset generation. The proposed framework first employs existing methods 
+to synthesize multi-view consistent images from a single input image, 
+and subsequently leverages these multi-view images as conditions to 
+perform parameter-efficient fine-tuning of Trellis2 via Low-Rank 
+Adaptation (LoRA), targeting the self-attention and cross-attention 
+layers within each Transformer block of the diffusion network to guide 
+the model toward generating geometrically complete and materially faithful 
+3D assets. The proposed approach introduces only a minimal number of 
+trainable parameters, effectively preserving the generative capability 
+of the pre-trained model while substantially improving view consistency 
+and material fidelity of the generated outputs. Extensive experiments 
+demonstrate that MVTrellis achieves notable improvements over existing
+methods in terms of texture detail, cross-view consistency, and visual coherence.
+
+\vspace{1em}
+
+\noindent\textbf{Keywords: }Texture Generation; Diffusion Models; Low-Rank Adaptation
