@@ -1,3 +1,5 @@
+\cleardoublepage
+
 \section{基础理论与方法}
 本章介绍本文方案所涉及的核心基础理论与技术方法，
 包括扩散模型的基本原理、原生三维表示与生成框架、
@@ -140,6 +142,8 @@ DINOv3\cite{simeoni2025dinov3} 是一种基于自监督学习的视觉特征提�
 并通过交叉注意力机制注入 Sparse DiT 主干网络，
 为三维纹理生成提供跨视角的外观约束。
 
+\cleardoublepage
+
 \section{方案实现}
 为实现高保真、视角连贯且几何对齐的三维纹理生成，
 本工作的核心思想是将二维生成模型\cite{podell2023sdxl, huang2025mv}中蕴含的丰富学习先验
@@ -154,7 +158,6 @@ DINOv3\cite{simeoni2025dinov3} 是一种基于自监督学习的视觉特征提�
 
 \subsection{整体框架}
 \label{sec:overview}
-
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{figure/final/pineline.png}

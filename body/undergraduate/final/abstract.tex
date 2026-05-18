@@ -3,13 +3,29 @@
     \bfseries \zihao{3} 摘~要
 \end{center}
 
-尽管近期基于扩散模型的三维生成方法取得了显著进展，但现有方法在利用多视角图像作为生成条件时仍面临诸多挑战，
-包括单视图输入信息不足导致的几何歧义性、跨视图信息融合不充分以及生成结果与输入视角之间一致性较差等问题。
-为此，本文提出MVTrellis———一种单视图驱动的多视角引导三维资产生成框架。该框架首先使用现有方法， 
-将单视图图像扩展为多视角一致图像，再以多视角图像为条件，通过 LoRA 对 Trellis2 扩散网络中每个 Transformer 
-Block 的自注意力与交叉注意力层进行参数高效微调，引导模型生成几何完整、材质真实的三维资产。
-该方法仅引入少量可训练参数，在保留预训练模型原有生成能力的同时，有效提升了生成结果的视角一致性与材质保真度。
-实验结果表明，本文方法在纹理细节、跨视角一致性和连贯性等方面均有明显提高。
+尽管近期基于扩散模型的三维生成方法取得了显著进展，
+但现有方法在单视图驱动三维纹理生成时仍面临诸多挑战：
+原生三维生成模型受限于三维训练数据的规模与多样性，
+对物体背面及遮挡区域的外观推断能力不足，
+易产生语义错误或细节模糊的纹理；
+而多视图投影方法虽能借助二维扩散模型的丰富外观先验，
+却受制于遮挡覆盖不全与重投影精度限制，
+常出现接缝错位与跨视角不连续等问题。
+为此，本文提出 MVTrellis———一种单视图驱动的多视角引导原生三维纹理生成框架。
+该框架以裸网格与单张参考图像为输入，采用两阶段生成策略：
+首先利用几何引导的多视角扩散模型 MV-Adapter，
+将参考图像扩展为与目标几何精确对齐的多视角一致图像，
+为三维纹理生成提供覆盖前、后、左、右四个视角的完整外观约束；
+随后以多视角图像为条件，通过 LoRA 对 Trellis.2 扩散网络
+材质生成阶段中各 Transformer Block 的注意力层进行参数高效微调，
+仅引入少量可训练参数，
+在保留预训练模型原有三维生成先验的同时，
+使模型获得对多视角条件输入的感知与融合能力，
+直接在原生三维潜变量空间中生成几何完整、材质真实的三维资产。
+实验结果表明，本文方法在 FID 与 CMMD 等核心指标上均取得最优结果，
+在纹理细节保真度、跨视角一致性与不可见区域补全能力方面
+均优于 Hunyuan 2.0、MVPainter、Step1X-3D 等主流方法，
+验证了多视角先验注入策略在三维纹理生成任务中的有效性。
 
 \vspace{0.7em}
 
@@ -21,26 +37,35 @@ Block 的自注意力与交叉注意力层进行参数高效微调，引导模�
     \bfseries \zihao{3} Abstract
 \end{center}
 
-Although recent advances in diffusion-based 3D generation have achieved 
-remarkable progress, existing methods still face significant challenges
-when leveraging multi-view images as generation conditions, including 
-geometric ambiguity caused by insufficient single-view information, 
-inadequate cross-view feature fusion, and poor consistency between 
-generated results and input viewpoints. To address these limitations, 
-we present MVTrellis, a single-view-driven, multi-view-guided framework 
-for 3D asset generation. The proposed framework first employs existing methods 
-to synthesize multi-view consistent images from a single input image, 
-and subsequently leverages these multi-view images as conditions to 
-perform parameter-efficient fine-tuning of Trellis2 via Low-Rank 
-Adaptation (LoRA), targeting the self-attention and cross-attention 
-layers within each Transformer block of the diffusion network to guide 
-the model toward generating geometrically complete and materially faithful 
-3D assets. The proposed approach introduces only a minimal number of 
-trainable parameters, effectively preserving the generative capability 
-of the pre-trained model while substantially improving view consistency 
-and material fidelity of the generated outputs. Extensive experiments 
-demonstrate that MVTrellis achieves notable improvements over existing
-methods in terms of texture detail, cross-view consistency, and visual coherence.
+Although recent diffusion-based 3D generation methods have achieved significant progress,
+existing approaches still face considerable challenges in single-view-driven 3D texture generation.
+Native 3D generative models are constrained by the scale and diversity of 3D training data,
+resulting in insufficient capability to infer the appearance of occluded regions,
+and tend to produce textures with semantic errors or blurred details.
+Multi-view projection methods, while capable of leveraging rich appearance priors
+from 2D diffusion models, suffer from incomplete occlusion coverage and limited
+reprojection accuracy, often leading to seam misalignment and cross-view discontinuities.
+To address these challenges, we propose MVTrellis, a single-view-driven,
+multi-view-guided native 3D texture generation framework.
+Given a bare mesh and a single reference image, MVTrellis adopts a two-stage generation strategy:
+it first employs a geometry-guided multi-view diffusion model, MV-Adapter,
+to expand the reference image into multi-view consistent images
+precisely aligned with the target geometry,
+providing complete appearance constraints covering front, back, left, and right viewpoints;
+it then takes the multi-view images as conditions and applies LoRA to perform
+parameter-efficient fine-tuning on the attention layers of each Transformer Block
+in the material generation stage of the Trellis.2 diffusion network.
+By introducing only a small number of trainable parameters,
+the proposed method preserves the pretrained 3D generation priors
+while enabling the model to perceive and fuse multi-view conditional inputs,
+generating geometrically complete and material-faithful 3D assets
+directly in the native 3D latent space.
+Experimental results demonstrate that our method achieves state-of-the-art performance
+on FID and CMMD metrics, and outperforms existing methods including
+Hunyuan 2.0, MVPainter, and Step1X-3D in terms of texture fidelity,
+cross-view consistency, and occluded region completion,
+validating the effectiveness of the proposed multi-view prior injection strategy
+for 3D texture generation.
 
 \vspace{0.7em}
 

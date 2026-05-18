@@ -127,12 +127,6 @@
 \subsubsection{用户旅程图分析}
 
 基于访谈结果，本研究构建了用户在使用自动三维生成工具过程中的旅程图（图\ref{fig:user_journey}）。
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figure/proposal/journey.png}
-    \caption{面向 Web 三维生成系统的用户旅程图}
-    \label{fig:user_journey}
-\end{figure}
 用户旅程分为五个阶段：需求识别、模型准备、材质生成、预览与修改及导出与应用。  
 
 旅程图清晰展示了用户在各阶段的操作、体验情绪、痛点以及对工具的需求。
@@ -150,3 +144,11 @@
 在仅有单视图时，则先通过多视角扩散模型补全视角信息，再完成纹理生成。
 这一设计不仅切实回应了用户的核心痛点，也构成了本工作的核心动机与主要贡献。
 
+\begin{figure}[htbp]
+    \centering
+    \makebox[\textwidth][c]{
+        \includegraphics[width=1.05\linewidth]{figure/proposal/journey.png}
+    }
+    \caption{面向 Web 三维生成系统的用户旅程图}
+    \label{fig:user_journey}
+\end{figure}
